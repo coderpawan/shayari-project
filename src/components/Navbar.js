@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import Logo from "../images/logo.jpeg";
 import { UserCircleIcon } from "@heroicons/react/outline";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,12 +17,14 @@ const Navbar = () => {
               </div>
               <div className="hidden md:block">
                 <div className="relative left-[20%] bottom-8 flex items-baseline space-x-4">
-                  <a
-                    href="/"
-                    className=" hover:bg-gray-700 text-white px-3 py-2 relative top-8 rounded-md text-sm font-medium"
+                  <Link
+                    to="/"
+                    className=" hover:bg-gray-700 text-white px-3 py-2 relative
+                    top-8 rounded-md text-sm font-medium"
                   >
+                    {" "}
                     HOME
-                  </a>
+                  </Link>
 
                   <a
                     href="/"
@@ -30,12 +33,12 @@ const Navbar = () => {
                     SHAYARIES
                   </a>
 
-                  <a
-                    href="/"
+                  <Link
+                    to="upload"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 relative top-8 rounded-md text-sm font-medium"
                   >
                     WRITE SHAYARIES
-                  </a>
+                  </Link>
 
                   <a
                     href="/"
