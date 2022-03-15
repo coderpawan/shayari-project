@@ -3,9 +3,29 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const Upload = () => {
-  const [post, setPost] = useState(false);
+  const [post, setPost] = useState(true);
   const [videos, setVideos] = useState(false);
   const [audios, setAudios] = useState(false);
+  const [selectedFile, setSelectedFile] = useState();
+  const [isSelected, setIsSelected] = useState(false);
+  const [selectedAudio, setSelectedAudio] = useState();
+  const [isAudioSelected, setIsAudioSelected] = useState(false);
+
+  const changeHandler = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setIsSelected(true);
+  };
+  const changeHandlerAudio = (event) => {
+    setSelectedAudio(event.target.files[0]);
+    setIsAudioSelected(true);
+  };
+
+  const deleteVideo = () => {
+    setIsSelected(false);
+  };
+  const deleteAudio = () => {
+    setIsAudioSelected(false);
+  };
 
   const handlePost = () => {
     setPost(true);
@@ -25,9 +45,9 @@ const Upload = () => {
   return (
     <div>
       <Navbar />
-      <div class="flex w-full bg-blue-400">
-        <ul class="mt-48 max-w-sm mx-48">
-          <li class="relative mt-8" onClick={handlePost}>
+      <div class="flex md:flex-row flex-col w-full bg-blue-400">
+        <ul class="md:mt-48 mt-12 max-w-sm md:mx-48 flex md:block">
+          <li class="relative md:mt-8 mx-4 md:mx-0" onClick={handlePost}>
             <input
               class="sr-only peer"
               type="radio"
@@ -47,7 +67,7 @@ const Upload = () => {
             </div> */}
           </li>
 
-          <li class="relative mt-8" onClick={handleVideos}>
+          <li class="relative md:mt-8 mx-4 md:mx-0" onClick={handleVideos}>
             <input
               class="sr-only peer"
               type="radio"
@@ -67,7 +87,7 @@ const Upload = () => {
             </div> */}
           </li>
 
-          <li class="relative mt-8" onClick={handleAudios}>
+          <li class="relative md:mt-8 mx-4 md:mx-0" onClick={handleAudios}>
             <input
               class="sr-only peer"
               type="radio"
@@ -88,7 +108,7 @@ const Upload = () => {
           </li>
         </ul>
 
-        <div class="w-1/2 bg-white rounded shadow-2xl p-8 m-4">
+        <div class="md:w-1/2 bg-white rounded shadow-2xl p-8 m-4">
           <h1 class="block w-full text-center text-gray-800 text-2xl font-bold mb-6">
             Post your shayaries
           </h1>
@@ -230,21 +250,41 @@ const Upload = () => {
                       />
                     </svg>
                     <div class="flex text-sm text-gray-600">
-                      <label
-                        for="file-upload"
-                        class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                      >
-                        <span>Upload a file</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          class="sr-only"
-                        />
-                      </label>
-                      <p class="pl-1">or drag and drop</p>
+                      {!isSelected ? (
+                        <label
+                          for="file-upload"
+                          class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
+                          <span>Upload a file</span>
+                          <input
+                            id="file-upload"
+                            name="file-upload"
+                            type="file"
+                            class="sr-only"
+                            onChange={changeHandler}
+                          />
+                        </label>
+                      ) : null}
+
+                      {isSelected ? (
+                        <p className="ml-5">{selectedFile.name}</p>
+                      ) : null}
                     </div>
-                    <p class="text-xs text-gray-500">MP4 up to 5MB</p>
+                    {isSelected ? (
+                      <p class="text-xs text-gray-500">
+                        Your File Size is {selectedFile.size / 1000000} MB
+                      </p>
+                    ) : (
+                      <p class="text-xs text-gray-500">MP4 up to 5MB</p>
+                    )}
+                    {isSelected ? (
+                      <button
+                        onClick={deleteVideo}
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                      >
+                        Delete
+                      </button>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -271,21 +311,40 @@ const Upload = () => {
                       />
                     </svg>
                     <div class="flex text-sm text-gray-600">
-                      <label
-                        for="file-upload"
-                        class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                      >
-                        <span>Upload a file</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          class="sr-only"
-                        />
-                      </label>
-                      <p class="pl-1">or drag and drop</p>
+                      {!isAudioSelected ? (
+                        <label
+                          for="file-upload"
+                          class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
+                          <span>Upload a file</span>
+                          <input
+                            id="file-upload"
+                            name="file-upload"
+                            type="file"
+                            class="sr-only"
+                            onChange={changeHandlerAudio}
+                          />
+                        </label>
+                      ) : null}
+                      {isAudioSelected ? (
+                        <p className="ml-5">{selectedAudio.name}</p>
+                      ) : null}
                     </div>
-                    <p class="text-xs text-gray-500">MP3 up to 2MB</p>
+                    {isAudioSelected ? (
+                      <p class="text-xs text-gray-500">
+                        Your File Size is {selectedAudio.size / 1000000} MB
+                      </p>
+                    ) : (
+                      <p class="text-xs text-gray-500">MP3 up to 2MB</p>
+                    )}
+                    {isAudioSelected ? (
+                      <button
+                        onClick={deleteAudio}
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                      >
+                        Delete
+                      </button>
+                    ) : null}
                   </div>
                 </div>
               </div>

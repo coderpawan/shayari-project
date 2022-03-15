@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
-import Logo from "../images/logo.jpeg";
+import Logo from "../images/logo.png";
 import { UserCircleIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
-      <nav className="bg-gray-800">
+      <nav className="bg-[rgb(102,51,51)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-24">
             <div className="flex items-center">
@@ -34,7 +34,7 @@ const Navbar = () => {
                   </a>
 
                   <Link
-                    to="upload"
+                    to="/upload"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 relative top-8 rounded-md text-sm font-medium"
                   >
                     WRITE SHAYARIES
@@ -47,12 +47,12 @@ const Navbar = () => {
                     ABOUT US
                   </a>
 
-                  <a
-                    href="/"
+                  <Link
+                    to="/contactus"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 relative top-8 rounded-md text-sm font-medium"
                   >
                     CONTACT US
-                  </a>
+                  </Link>
                   <div className="relative left-[8%]">
                     <a
                       href="/"
